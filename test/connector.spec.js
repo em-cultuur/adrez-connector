@@ -1,7 +1,7 @@
 
 const Chai = require('chai');
 const assert = Chai.assert;
-const AdrezApi = require('../connector').AdrezApi;
+const AdrezApi = require('../index').AdrezApi;
 
 describe('connector', () => {
   describe('connect', () => {
