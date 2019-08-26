@@ -1,0 +1,20 @@
+{
+  "name": "adrez-connector",
+  "version": "0.0.1",
+  "description": "Connector to the AdreZ API",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --expose-internals ./node_modules/.bin/mocha $(find test -name '*spec.js') --exit --recursive"
+  },
+  "keywords": [],
+  "author": "Jaap van der Kreeft",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "error-types": "git+https://github.com/toxus/error-types.git"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0"
+  }
+}
