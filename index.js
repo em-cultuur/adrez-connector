@@ -15,6 +15,7 @@ class Connector {
     this._customer = options.customer ? options.customer : false;
     this._username = options.username ? options.username : false;
     this._password = options.password ? options.password : false;
+    this._session = options.session ? options.session : 'noSession';
     this._authKey = options.authKey ? options.authKey : false;
     this._key = options.key ? options.key : false;
     this._apiServer = Axios.create({
@@ -46,7 +47,7 @@ class Connector {
       if (!this._customer || !this._username || !this._password) {
         return Promise.reject(new Error('missing username, password or customer'));
       }
-      let result = await this._apiServer.post('/auth', {customer: this._customer, username: this._username, password: this._password});
+      let result = await this._apiServer.post('/auth', {customer: this._customer, username: this._username, password: this._password, session: this._session});
       let data = await this._handleResponse(result);
       if (data.token) {
         this._authKey = data.token;
@@ -65,7 +66,7 @@ class Connector {
   }
   updateSync(syncId, addr) {
     return this._connect().then( () => {
-      return this._apiServer.patch('/sync/' + syncId, addr).then( (data) => {
+      return this._apiServer.post('/sync/' + syncId, addr).then( (data) => {
         return this._handleResponse(data)
       });
     });

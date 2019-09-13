@@ -19,7 +19,8 @@ async function changeAdrez() {
       key: 'test', 
       customer: 'test', 
       username: 'api.call', 
-      password: '123456'
+      password: '123456',
+      session: 'theImport'
     });
 
     // add a record  

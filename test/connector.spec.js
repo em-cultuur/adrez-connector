@@ -3,10 +3,18 @@ const Chai = require('chai');
 const assert = Chai.assert;
 const AdrezApi = require('../index').AdrezApi;
 
+const accountInfo = {
+  key: 'test',
+  customer: 'connector',
+  username: 'test.connector',
+  password: '123456',
+  session: 'testDb'
+};
+
 describe('connector', () => {
   describe('connect', () => {
     it('test', () => {
-      return AdrezApi.connection({key: 'test', customer: 'test', username: 'api.call', password: '123456'}).then( (api) => {
+      return AdrezApi.connection(accountInfo).then( (api) => {
         return api.test().then( (result) => {
           assert(result !== undefined, 'did anwser');
           assert(result === true, 'did awnser')
@@ -18,14 +26,18 @@ describe('connector', () => {
   describe('add', () => {
     let con;
     before( () => {
-      return AdrezApi.connection({key: 'test', customer: 'test', username: 'api.call', password: '123456'}).then( (api) => {
+      return AdrezApi.connection(accountInfo).then( (api) => {
         con = api;
       })
     });
 
-    it('empty record', () => {
-      return con.addSync('123', {}).then( (result) => {
-        assert(result, 'did the add')
+    it('basic record', () => {
+      return con.addSync('123', {contact: [{fullName: 'Test User'}]}).then( (result) => {
+        assert.isDefined(result, 'did the add');
+        assert.isDefined(result.id, 'got the id');
+        assert.isDefined(result.contact, 'got a contact');
+        // can fail if test was not fully runned. It becomes an upd
+        assert.equal(result.contact.add, 1, 'one added');
       })
     })
   });
@@ -33,14 +45,16 @@ describe('connector', () => {
   describe('get', () => {
     let con;
     before( () => {
-      return AdrezApi.connection({key: 'test', customer: 'test', username: 'api.call', password: '123456'}).then( (api) => {
+      return AdrezApi.connection(accountInfo).then( (api) => {
         con = api;
       })
     });
 
     it('get record', () => {
       return con.getSync('123').then( (result) => {
-        assert(result, 'did the get')
+        assert.isDefined(result, 'did the get');
+        assert.equal(result.contact[0].name, 'User', 'The name');
+//        assert.equal(result.firstLetters, 'T.', 'and processed it')
       })
     })
   });
@@ -49,14 +63,16 @@ describe('connector', () => {
   describe('update', () => {
     let con;
     before( () => {
-      return AdrezApi.connection({key: 'test', customer: 'test', username: 'api.call', password: '123456'}).then( (api) => {
+      return AdrezApi.connection(accountInfo).then( (api) => {
         con = api;
       })
     });
 
     it('record', () => {
-      return con.updateSync('123', {contact: [{name: 'test'}]}).then( (result) => {
-        assert(result, 'did the update')
+      return con.updateSync('123', {contact: [{fullName: 'User Test'}]}).then( (result) => {
+        assert.isDefined(result, 'did the update');
+        assert.isDefined(result.id, 'has an id');
+        assert.isDefined(result.contact, 'has update record')
       })
     })
   });
@@ -64,7 +80,7 @@ describe('connector', () => {
   describe('remove', () => {
     let con;
     before( () => {
-      return AdrezApi.connection({key: 'test', customer: 'test', username: 'api.call', password: '123456'}).then( (api) => {
+      return AdrezApi.connection(accountInfo).then( (api) => {
         con = api;
       })
     });
