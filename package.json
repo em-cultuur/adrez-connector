@@ -1,6 +1,6 @@
 {
   "name": "adrez-connector",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Connector to the AdreZ API",
   "main": "index.js",
   "scripts": {
