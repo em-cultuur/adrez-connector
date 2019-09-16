@@ -85,6 +85,15 @@ class Connector {
       });
     });
   }
+
+  removeAll() {
+    return this._connect().then( () => {
+      return this._apiServer.delete('/sync/remove-all').then( (data) => {
+        return this._handleResponse(data);
+      })
+    })
+  }
+
   close() {
     return Promise.reject('not implemented');
   }

@@ -92,4 +92,17 @@ describe('connector', () => {
     })
   });
 
+  describe('remove all', () => {
+    let con;
+    before( () => {
+      return AdrezApi.connection(accountInfo).then( (api) => {
+        con = api;
+      })
+    });
+    it('all', () => {
+      return con.removeAll().then( (result) => {
+        assert.equal(result.count, 0, 'got it')
+      })
+    })
+  })
 });
