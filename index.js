@@ -98,6 +98,21 @@ class Connector {
     return Promise.reject('not implemented');
   }
 
+  start(key) {
+    return this._connect().then( () => {
+      return this._apiServer.post('/sync/start/' + key).then( (data) => {
+        return this._handleResponse(data);
+      })
+    })
+  }
+  ended(key) {
+    return this._connect().then( () => {
+      return this._apiServer.post('/sync/ended/' + key).then( (data) => {
+        return this._handleResponse(data);
+      })
+    })
+  }
+
 }
 
 const AdrezApi = {

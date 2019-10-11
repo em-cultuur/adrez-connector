@@ -105,4 +105,24 @@ describe('connector', () => {
       })
     })
   })
+
+  describe('start/stop', () => {
+    let con;
+    before( () => {
+      return AdrezApi.connection(accountInfo).then( (api) => {
+        con = api;
+      })
+    });
+    it('start', () => {
+      return con.start('now').then( (result) => {
+        assert.equal(result, 'ok' , 'got it')
+      })
+    });
+    it('ended', () => {
+      return con.start('now').then( (result) => {
+        assert.equal(result, 'ok' , 'got it')
+      })
+    })
+
+  });
 });
