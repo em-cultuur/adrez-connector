@@ -78,9 +78,13 @@ class Connector {
       });
     });
   }
-  getSync(syncId) {
+  getSync(syncId, options = {}) {
     return this._connect().then( () => {
-      return this._apiServer.get('/sync/' + syncId).then( (data) => {
+      let url = `/sync/${syncId}`;
+      if (options.noSiblings) {
+        url += '?noSiblings=1'
+      }
+      return this._apiServer.get(url).then( (data) => {
         return this._handleResponse(data)
       });
     });

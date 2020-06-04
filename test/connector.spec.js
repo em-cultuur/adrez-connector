@@ -88,6 +88,7 @@ describe('connector', () => {
     it('record', () => {
       return con.removeSync('123', {contact: [{name: 'test'}]}).then( (result) => {
         assert(result, 'did the remove')
+        assert.equal(result.del, 1)
       })
     })
   });

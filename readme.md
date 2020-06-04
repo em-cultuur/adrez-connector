@@ -48,7 +48,7 @@ async function changeAdrez() {
  
 ## Maintainers
 
-- [Jaap van der Kreeft](https://github.com/toxus)
+- [Jay McAnser](https://github.com/jaymcanser)
 
 
 ## License
