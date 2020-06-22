@@ -133,7 +133,7 @@ describe('connector', () => {
     });
     it('retrieve', () => {
       return con.info().then( (result) => {
-        assert.equal(result.name, 'adrez-api');
+        assert.equal(result.response.name, 'adrez-api');
       })
     });
   })

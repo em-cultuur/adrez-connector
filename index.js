@@ -2,10 +2,13 @@
  * Connector to the AdreZ.sync api
  *
  * version 0.0.1  JvK 2019-08-26
+ * version 0.4.0  Jay 2020-06-23
  */
 
 const Axios = require('axios');
 const ErrorNotValid = require('error-types').ErrorFieldNotValid;
+const fs = require('fs');
+const Path = require('path');
 
 
 class Connector {
@@ -120,7 +123,20 @@ class Connector {
   info() {
     return this._connect().then( () => {
       return this._apiServer.get('/').then( (rec) => {
-        return rec.data;
+        let raw = fs.readFileSync(Path.join(__dirname, 'package.json'));
+        let pack = JSON.parse(raw);
+        return Object.assign({},
+         {
+           version: pack.version,
+           url: this._server,
+           customer: this._customer,
+           username: this._username,
+           password: this._password,
+           response: rec.data,
+         }
+        );
+      }).catch( (err) => {
+        return err;
       });
     })
   }

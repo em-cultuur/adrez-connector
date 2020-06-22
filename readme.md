@@ -17,10 +17,9 @@ async function changeAdrez() {
   try {  
     let con = await AdrezApi.connection({
       key: 'test', 
-      customer: 'test', 
-      username: 'api.call', 
-      password: '123456',
-      session: 'theImport'
+      customer: 'test.user', 
+      username: 'user1', 
+      password: '123456',    
     });
 
     // add a record  
