@@ -117,11 +117,18 @@ class Connector {
     })
   }
 
+  info() {
+    return this._connect().then( () => {
+      return this._apiServer.get('/').then( (rec) => {
+        return rec.data;
+      });
+    })
+  }
 }
 
 const AdrezApi = {
   connection(options = {} ) {
-    return Promise.resolve(new Connector(options));
+    return Promise.resolve(new Connector(options))
   }
 };
 

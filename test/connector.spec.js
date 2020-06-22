@@ -5,10 +5,9 @@ const AdrezApi = require('../index').AdrezApi;
 
 const accountInfo = {
   key: 'test',
-  customer: 'connector',
-  username: 'test.connector',
-  password: '123456',
-  session: 'testDb'
+  customer: 'test.basis',
+  username: 'user1',
+  password: '123456'
 };
 
 describe('connector', () => {
@@ -116,14 +115,26 @@ describe('connector', () => {
     });
     it('start', () => {
       return con.start('now').then( (result) => {
-        assert.equal(result, 'ok' , 'got it')
+        assert.equal(result, 'trigger' , 'got it')
       })
     });
     it('ended', () => {
       return con.start('now').then( (result) => {
-        assert.equal(result, 'ok' , 'got it')
+        assert.equal(result, 'trigger' , 'got it')
       })
-    })
-
+    });
   });
+
+  describe('info', () => {
+    before( () => {
+      return AdrezApi.connection(accountInfo).then( (api) => {
+        con = api;
+      })
+    });
+    it('retrieve', () => {
+      return con.info().then( (result) => {
+        assert.equal(result.name, 'adrez-api');
+      })
+    });
+  })
 });

@@ -53,4 +53,4 @@ async function changeAdrez() {
 
 ## License
 
-(c) 2019 MIT
+(c) 2020 MIT
