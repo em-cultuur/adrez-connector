@@ -125,17 +125,20 @@ class Connector {
       return this._apiServer.get('/').then( (rec) => {
         let raw = fs.readFileSync(Path.join(__dirname, 'package.json'));
         let pack = JSON.parse(raw);
-        return Object.assign({},
-         {
-           api: 'adrez-api',
-           version: pack.version,
-           url: this._server,
-           customer: this._customer,
-           username: this._username,
-           password: this._password,
-           adrezApi: rec.data,
-         }
-        );
+        return this._apiServer.get('/sync/info').then( (inf2) => {
+          return Object.assign({},
+            {
+              api: 'adrez-api',
+              version: pack.version,
+              url: this._server,
+              customer: this._customer,
+              username: this._username,
+              password: this._password,
+              adrezApi: rec.data,
+              sessionGuid: inf2.data.sessionGuid
+            }
+          );
+        })
       }).catch( (err) => {
         return err;
       });
