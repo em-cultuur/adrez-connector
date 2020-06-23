@@ -119,7 +119,7 @@ describe('connector', () => {
       })
     });
     it('ended', () => {
-      return con.start('now').then( (result) => {
+      return con.ended('now').then( (result) => {
         assert.equal(result, 'trigger' , 'got it')
       })
     });
@@ -133,7 +133,7 @@ describe('connector', () => {
     });
     it('retrieve', () => {
       return con.info().then( (result) => {
-        assert.equal(result.response.name, 'adrez-api');
+        assert.equal(result.api, 'adrez-api');
       })
     });
   })

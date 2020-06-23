@@ -127,12 +127,13 @@ class Connector {
         let pack = JSON.parse(raw);
         return Object.assign({},
          {
+           api: 'adrez-api',
            version: pack.version,
            url: this._server,
            customer: this._customer,
            username: this._username,
            password: this._password,
-           response: rec.data,
+           adrezApi: rec.data,
          }
         );
       }).catch( (err) => {
