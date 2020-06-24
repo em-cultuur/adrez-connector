@@ -134,7 +134,7 @@ describe('connector', () => {
     it('retrieve', () => {
       return con.info().then( (result) => {
         assert.equal(result.api, 'adrez-api');
-        assert.equal(result.sessionGuid, 'TEST.BASIS.SYNC')
+        assert.equal(result.session.sessionGuid, 'TEST.BASIS.SYNC')
       })
     });
   })

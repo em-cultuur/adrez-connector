@@ -135,7 +135,7 @@ class Connector {
               username: this._username,
               password: this._password,
               adrezApi: rec.data,
-              sessionGuid: inf2.data.sessionGuid
+              session: inf2.data
             }
           );
         })
