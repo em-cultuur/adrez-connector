@@ -126,6 +126,9 @@ class Connector {
         let raw = fs.readFileSync(Path.join(__dirname, 'package.json'));
         let pack = JSON.parse(raw);
         return this._apiServer.get('/sync/info').then( (inf2) => {
+          if (inf2.data.errors) {
+            return inf2.data
+          }
           return Object.assign({},
             {
               api: 'adrez-api',
