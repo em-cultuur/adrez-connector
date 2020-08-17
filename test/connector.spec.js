@@ -33,10 +33,6 @@ describe('connector', () => {
     it('basic record', () => {
       return con.addSync('123', {contact: [{fullName: 'Test User'}]}).then( (result) => {
         assert.isDefined(result, 'did the add');
-        assert.isDefined(result.id, 'got the id');
-        assert.isDefined(result.contact, 'got a contact');
-        // can fail if test was not fully runned. It becomes an upd
-        assert.equal(result.contact.add, 1, 'one added');
       })
     })
   });
@@ -70,8 +66,6 @@ describe('connector', () => {
     it('record', () => {
       return con.updateSync('123', {contact: [{fullName: 'User Test'}]}).then( (result) => {
         assert.isDefined(result, 'did the update');
-        assert.isDefined(result.id, 'has an id');
-        assert.isDefined(result.contact, 'has update record')
       })
     })
   });
@@ -135,6 +129,20 @@ describe('connector', () => {
       return con.info().then( (result) => {
         assert.equal(result.api, 'adrez-api');
         assert.equal(result.session.sessionGuid, 'TEST.BASIS.SYNC')
+      })
+    });
+  })
+
+  describe('adrez get', () => {
+    before( () => {
+      return AdrezApi.connection(accountInfo).then( (api) => {
+        con = api;
+      })
+    });
+    it('retrieve', () => {
+      return con.get('1').then( (result) => {
+        assert.isTrue(result.contact.length > 0);
+        assert.equal(result.contact[0].fullName, 'EM-Cultuur')
       })
     });
   })

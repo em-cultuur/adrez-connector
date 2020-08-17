@@ -93,6 +93,16 @@ class Connector {
     });
   }
 
+  get(id, options = {}) {
+    return this._connect().then( () => {
+      let url = `/adrez/${id}`;
+      return this._apiServer.get(url).then( (data) => {
+        return this._handleResponse(data)
+      });
+    });
+  }
+
+
   removeAll() {
     return this._connect().then( () => {
       return this._apiServer.delete('/sync/remove-all').then( (data) => {
